@@ -85,6 +85,55 @@
         #strategic-debrief-content p { font-size: 1em; margin-bottom: 15px; }
         .recommendations ul li { padding: 8px 0 8px 30px; position: relative; font-size: 1em; }
         .recommendations ul li::before { content: '\f0a9'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--accent-yellow); position: absolute; left: 0; top: 10px; }
+
+        /* Roles Info specific styles */
+        #rolesInfo {
+            background-color: var(--section-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: left;
+            width: 100%;
+            max-width: 600px;
+        }
+        #rolesInfo h3 {
+            color: var(--accent-green);
+            margin-top: 0;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--interactive-bg);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #rolesInfo ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        #rolesInfo ul li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+        #rolesInfo ul li:last-child {
+            margin-bottom: 0;
+        }
+        #rolesInfo ul li::before {
+            content: '\f007'; /* User icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--accent-purple);
+            position: absolute;
+            left: 0;
+            top: 3px;
+        }
+        #rolesInfo ul li.your-role::before {
+            color: var(--accent-yellow); /* Highlight your role */
+        }
+        #rolesInfo ul li strong {
+            color: var(--accent-blue);
+        }
     </style>
 </head>
 <body>
@@ -93,6 +142,19 @@
             <h1><i class="fa-solid fa-user-secret"></i> Güven İhlali Simülasyonu</h1>
             <p style="max-width: 600px;">Hoş geldiniz, Siber Güvenlik Direktörü! Bugün şirketinizi saran, teknolojinin ötesine geçen bir krizle yüzleşeceksiniz: **İçeriden Gelen Tehdit**. Sızan veriler, düşen itibar ve sarsılan güven... Bu simülasyonda, sadece teknik sorunları çözmekle kalmayacak, aynı zamanda insan psikolojisi, şirket kültürü ve etik ikilemlerle dolu zor kararlar vereceksiniz. Her seçiminiz, krizin seyrini ve şirketin kaderini belirleyecek. Hazır mısınız?</p>
             <img src="images/intro_cyber.png" alt="Siber güvenlik temalı bir giriş görseli" class="scenario-image">
+
+            <div id="rolesInfo">
+                <h3><i class="fa-solid fa-people-arrows"></i> Simülasyon Rolleri</h3>
+                <ul>
+                    <li class="your-role"><strong>Sizin Rolünüz: Siber Güvenlik Direktörü</strong> - Soruşturmayı yönetmek, kritik kararlar almak ve şirketin krize yanıtını idare etmekle sorumlusunuz. Seçimleriniz sonucu doğrudan etkileyecektir.</li>
+                    <li><strong>CEO Hande Hanım</strong> - Şirketin en üst düzey yöneticisi, genel iş sürekliliği ve kamuoyu algısına odaklanmış durumda.</li>
+                    <li><strong>CFO Arda Bey</strong> - Şirketin finansal sağlığından sorumlu, kayıpları ve gelecekteki yatırımlar üzerindeki potansiyel etkileri yakından takip ediyor.</li>
+                    <li><strong>Hukuk Müşaviri Zeynep Hanım</strong> - Hukuki uyumluluğu denetler ve yasal riskleri azaltmak için kamuoyu açıklamaları konusunda danışmanlık yapar.</li>
+                    <li><strong>Satış Müdürü Ayşe Sarı </strong> - Sızıntıyı ilk keşfeden ekip arkadaşınız.</li>
+                    <li><strong>Potansiyel Şüpheliler (Elif, Can, Burak, Ayşe Sarı)</strong> - Olaya karışmış olabilecek çalışanlar, failler ya da mağdurlar.</li>
+                </ul>
+            </div>
+
             <button class="btn btn-start" id="startButton"><i class="fa-solid fa-play"></i> Simülasyonu Başlat</button>
         </div>
 
@@ -242,7 +304,7 @@
                         outcomeText = "Can Yılmaz'ın finansal borçları nedeniyle dış güçler tarafından manipüle edildiği ve bilgi sızdırdığı ortaya çıktı. Bu bir 'içeriden manipüle edilmiş' tehdittir.";
                         outcomeStrat = "Çalışanların kişisel sorunlarının, siber güvenlik risklerini nasıl artırabileceği anlaşıldı.";
                         changes = { financialLoss: 50000, reputation: -15, affectedPersonnel: 1 }; nextSection = 'section4';
-                         finalDecisionInfo = { title: 'Kök Neden Tespiti: Manipüle Edilmiş Çalışan', impactText: 'Finansal baskı altındaki çalışanı buldunuz.', impactType: 'Nötr' };
+                        finalDecisionInfo = { title: 'Kök Neden Tespiti: Manipüle Edilmiş Çalışan', impactText: 'Finansal baskı altındaki çalışanı buldunuz.', impactType: 'Nötr' };
                     } else if (this.state.burakClueFound) {
                         outcomeTitle = "Yanlış İz Üzerinde!";
                         outcomeText = "Eski çalışan Burak Kara'nın eski erişimlerini kullanarak bilgi çalmaya çalıştığı ancak başarılı olamadığı anlaşıldı. Bu durum bir güvenlik açığı olsa da, asıl sızıntının kaynağı bu değildi.";
@@ -359,9 +421,9 @@
                         debriefHTML += `<p><strong>Kaçırılan Fırsat:</strong> Soruşturma sırasında insan faktörü ve sosyal mühendislik ihtimali göz ardı edildi. Bu durum, kök nedenin bulunmasını zorlaştırdı ve süreci uzattı.</p>`;
                     }
                     if(finalRep > 80) {
-                         debriefHTML += `<p><strong>İtibar Yönetimi Başarısı:</strong> Kriz iletişiminde sergilediğiniz şeffaf ve proaktif tutum, kamuoyu güvenini yeniden tesis etmede kilit rol oynadı.</p>`;
+                           debriefHTML += `<p><strong>İtibar Yönetimi Başarısı:</strong> Kriz iletişiminde sergilediğiniz şeffaf ve proaktif tutum, kamuoyu güvenini yeniden tesis etmede kilit rol oynadı.</p>`;
                     } else if (finalRep < 50) {
-                         debriefHTML += `<p><strong>İletişim Zafiyeti:</strong> Kriz iletişiminde yapılan hatalar, itibarın ciddi şekilde zedelenmesine yol açtı. Güveni yeniden inşa etmek uzun sürecektir.</p>`;
+                           debriefHTML += `<p><strong>İletişim Zafiyeti:</strong> Kriz iletişiminde yapılan hatalar, itibarın ciddi şekilde zedelenmesine yol açtı. Güveni yeniden inşa etmek uzun sürecektir.</p>`;
                     }
                     debriefContent.innerHTML = debriefHTML;
 
@@ -371,7 +433,7 @@
                         recommendationsHTML.add(`<li>Çok faktörlü kimlik doğrulama (MFA) gibi teknik kontroller güçlendirilmeli.</li>`);
                     }
                     if(this.state.burakClueFound) {
-                         recommendationsHTML.add(`<li>İşten ayrılan personel için 'off-boarding' prosedürleri güncellenmeli ve tüm erişimlerin anında kesilmesi sağlanmalı.</li>`);
+                           recommendationsHTML.add(`<li>İşten ayrılan personel için 'off-boarding' prosedürleri güncellenmeli ve tüm erişimlerin anında kesilmesi sağlanmalı.</li>`);
                     }
                     recommendationsHTML.add(`<li>Kriz anları için net rollerin ve sorumlulukların belirlendiği bir 'Kriz İletişim Planı' oluşturulmalı.</li>`);
                     recommendationsList.innerHTML = Array.from(recommendationsHTML).join('');
@@ -384,7 +446,7 @@
                     if (!chatViewer) return;
                     let chat = '';
                     if (['section2', 'section2-1', 'section3', 'section3-ayse', 'section3-ayse-conclusion'].includes(currentSection)) {
-                         chat = `<div class="message"><span class="sender">CEO Hande Hanım:</span> Bu sızıntı kabul edilemez! Kim sorumlu? Hızlıca bulun!</div><div class="message"><span class="sender cfo">CFO Arda Bey:</span> Finansal riskleri değerlendiriyoruz. Olası yasal sonuçlar ne olur?</div><div class="message"><span class="sender legal">Hukuk Müşaviri Zeynep Hanım:</span> Durumu tam olarak anlamadan dışarıya açıklama yapmaktan kaçınalım.</div><div class="message"><span class="sender">Siz:</span> Ekibimle birlikte detaylı bir iç soruşturma başlattık.</div>`;
+                           chat = `<div class="message"><span class="sender">CEO Hande Hanım:</span> Bu sızıntı kabul edilemez! Kim sorumlu? Hızlıca bulun!</div><div class="message"><span class="sender cfo">CFO Arda Bey:</span> Finansal riskleri değerlendiriyoruz. Olası yasal sonuçlar ne olur?</div><div class="message"><span class="sender legal">Hukuk Müşaviri Zeynep Hanım:</span> Durumu tam olarak anlamadan dışarıya açıklama yapmaktan kaçınalım.</div><div class="message"><span class="sender">Siz:</span> Ekibimle birlikte detaylı bir iç soruşturma başlattık.</div>`;
                     } else if (currentSection === 'section4') {
                         chat = `<div class="message"><span class="sender">CEO Hande Hanım:</span> Kamuoyu açıklamasını hazırlıyoruz. Son bir kez teyit edelim. Ne kadarını paylaşacağız?</div><div class="message"><span class="sender legal">Hukuk Müşaviri Zeynep Hanım:</span> Yasal sorumluluklarımız var, ancak şirketin imajını da korumalıyız. Hassas dengeyi bulmalıyız.</div><div class="message"><span class="sender cfo">CFO Arda Bey:</span> Bu krizin maliyeti çok yüksek. Gelecekteki yatırımlarımız etkilenecek mi?</div>`;
                     }
